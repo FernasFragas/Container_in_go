@@ -1,0 +1,29 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Output files
+*.out
+
+# Go build files
+*.test
+*.prof
+
+# Dependency directories
+/vendor/
+/Godeps/
+
+# Output directories
+/bin/
+/pkg/
+
+# IDE-specific files
+.idea/
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
