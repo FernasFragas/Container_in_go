@@ -16,8 +16,8 @@ import (
 	"syscall"
 )
 
-//docker run image <main> <params>
-//go run main_linux.go run <main> <params>
+//docker run image <docker> <params>
+//go run main_linux.go run <docker> <params>
 
 func main() {
 	switch os.Args[1] {
