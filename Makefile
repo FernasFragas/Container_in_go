@@ -9,7 +9,5 @@ lint:
 test-coverage:
 	@go test -race -coverprofile=coverage.txt -covermode=atomic ./...
 
-build:
-	go build -o myapp ./cmd/myapp
 
 .PHONY: lint test-coverage build
