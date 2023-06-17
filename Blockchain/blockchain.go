@@ -1,5 +1,6 @@
-package Blockchain
+package blockchain
 
+// Blockchain is a collection of blocks
 type Blockchain struct {
 	blocks []*Block
 }
@@ -16,6 +17,8 @@ In any blockchain, there must be at least one block, the first in the chain, thi
 func NewGenesisBlock() *Block {
 	return NewBlock("Genesis Block", []byte{})
 }
+
+// AddBlock adds a new block to the blockchain
 func (bc *Blockchain) AddBlock(data string) {
 	prevBlock := bc.blocks[len(bc.blocks)-1]
 	newBlock := NewBlock(data, prevBlock.Hash)

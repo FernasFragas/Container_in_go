@@ -1,0 +1,13 @@
+mode: atomic
+small_projects_in_go/Blockchain/block.go:25.57,29.2 3 3
+small_projects_in_go/Blockchain/block.go:33.27,39.2 4 3
+small_projects_in_go/Blockchain/block.go:41.38,42.38 1 1
+small_projects_in_go/Blockchain/block.go:42.38,47.68 3 2
+small_projects_in_go/Blockchain/block.go:47.68,49.4 1 0
+small_projects_in_go/Blockchain/block.go:52.3,52.67 1 2
+small_projects_in_go/Blockchain/block.go:52.67,54.4 1 0
+small_projects_in_go/Blockchain/block.go:56.2,56.13 1 1
+small_projects_in_go/Blockchain/block.go:59.40,65.2 4 2
+small_projects_in_go/Blockchain/blockchain.go:8.34,10.2 1 1
+small_projects_in_go/Blockchain/blockchain.go:16.31,18.2 1 1
+small_projects_in_go/Blockchain/blockchain.go:19.45,23.2 3 2

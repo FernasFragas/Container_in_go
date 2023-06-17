@@ -1,4 +1,5 @@
-package Blockchain
+// Package blockchain implements a blockchain data structure
+package blockchain
 
 import (
 	"bytes"
@@ -38,6 +39,7 @@ func (b *Block) SetHash() {
 	b.Hash = hash[:]
 }
 
+// IsValid checks if the block is valid
 func (bc *Blockchain) IsValid() bool {
 	for i := 1; i < len(bc.blocks); i++ {
 		currentBlock := bc.blocks[i]
@@ -56,6 +58,7 @@ func (bc *Blockchain) IsValid() bool {
 	return true
 }
 
+// CalculateHash calculates the hash of the block
 func (b *Block) CalculateHash() []byte {
 	timestamp := []byte(strconv.FormatInt(b.Timestamp, 10))
 	headers := bytes.Join([][]byte{b.PrevBlockHash, b.Data, timestamp}, []byte{})

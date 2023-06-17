@@ -1,33 +1,15 @@
-PROJECT_NAME := "small_projects_in_go"
-PKG := "github.com/FernasFragas/$(PROJECT_NAME)"
-PKG_LIST := $(shell go list ${PKG}/... | grep -v /vendor/)
-GO_FILES := $(shell find . -name '*.go' | grep -v /vendor/ | grep -v _test.go)
+PACKAGE_NAME := "$(shell head -n 1 go.mod | cut -d ' ' -f2)"
 
-.PHONY: all dep lint vet test test-coverage build clean
+dep:
+	@go mod tidy
 
-all: build
+lint:
+	@revive -config ./revive.toml ./...
 
-dep: ## Get the dependencies
-	@go mod download
+test-coverage:
+	@go test -race -coverprofile=coverage.txt -covermode=atomic ./...
 
-lint: ## Lint Golang files
-	@golint -set_exit_status ${PKG_LIST}
+build:
+	go build -o myapp ./cmd/myapp
 
-vet: ## Run go vet
-	@go vet ${PKG_LIST}
-
-test: ## Run unittests
-	@go test -short ${PKG_LIST}
-
-test-coverage: ## Run tests with coverage
-	@go test -short -coverprofile cover.out -covermode=atomic ${PKG_LIST}
-	@cat cover.out >> coverage.txt
-
-build: dep ## Build the binary file
-	@go build -i -o build/main $(PKG)
-
-clean: ## Remove previous build
-	@rm -f build/*
-
-help: ## Display this help screen
-	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+.PHONY: lint test-coverage build
