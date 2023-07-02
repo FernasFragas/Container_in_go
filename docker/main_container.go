@@ -1,10 +1,15 @@
-/***
+//go:build linux
+// +build linux
+
+/*
+**
 Setup a container-like environment by using Linux namespaces, changing the root directory,
 setting up cgroups for resource management, and running a command within this environment.
 The run function is responsible for the parent process setup,
 while the child function prepares and executes the child process within the container environment.
-***/
-package main
+**
+*/
+package docker
 
 import (
 	"fmt"
@@ -17,9 +22,9 @@ import (
 )
 
 //docker run image <docker> <params>
-//go run main_linux.go run <docker> <params>
+//go run main_container.go run <docker> <params>
 
-func main() {
+func Main_Linux() {
 	switch os.Args[1] {
 	case "run":
 		run()
