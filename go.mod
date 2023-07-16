@@ -4,6 +4,7 @@ go 1.20
 
 require (
 	fyne.io/fyne/v2 v2.3.5
+	github.com/creack/pty v1.1.18
 	github.com/stretchr/testify v1.8.4
 )
 
