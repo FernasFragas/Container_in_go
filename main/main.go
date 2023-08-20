@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"small_projects_in_go/commandLine"
+	"small_projects_in_go/euromillions"
 )
 
 func main() {
@@ -15,5 +16,7 @@ func main() {
 		/*if runtime.GOOS == "linux" {
 			docker.Main_Linux()
 		}*/
+	case "euro":
+		euromillions.MainNumbersPicker()
 	}
 }

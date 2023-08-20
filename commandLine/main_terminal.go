@@ -19,6 +19,8 @@ func Main_Terminal() {
 	txtGrid := widget.NewTextGrid()
 	txtGrid.SetText("This is the terminal")
 
+	os.Setenv("TERM", "dumb")
+
 	kernelBash(txtGrid, window)
 
 	window.SetContent(
@@ -31,38 +33,55 @@ func Main_Terminal() {
 }
 
 func kernelBash(txtGrid *widget.TextGrid, window fyne.Window) {
-	command := exec.Command("/bin/bash")
+	command := exec.Command("/bin/sh")
 	ptyCommunicator, err := pty.Start(command)
 	if err != nil {
 		fyne.LogError("Faioed to open pty", err)
 		os.Exit(1)
 	}
 
-	defer command.Process.Kill()
+	_, err = ptyCommunicator.WriteString("ls\r")
+	if err != nil {
+		fyne.LogError(err.Error(), err)
+	}
+
+	b := make([]byte, 1024)
+	_, err = ptyCommunicator.Read(b)
+
+	if err != nil {
+		fyne.LogError(err.Error(), err)
+	}
+
+	txtGrid.SetText(string(b))
+
 	processKey(ptyCommunicator, window)
 
 	go func() {
 		for {
 			time.Sleep(1 * time.Second)
-			b := make([]byte, 256)
-			_, err := ptyCommunicator.Read(b)
-			if err != nil {
-				fyne.LogError("Failed to read from pty", err)
+			b = make([]byte, 1024)
+			n, err := ptyCommunicator.Read(b)
+			if n > 0 && err != nil {
+				fyne.LogError(err.Error(), err)
 			}
 			txtGrid.SetText(string(b))
 		}
 	}()
+
+	defer command.Process.Kill()
+
 }
 
+// processKey callbacks that handles special keypresses and characters keypresses
 func processKey(ptyCommunicator *os.File, window fyne.Window) {
 	onTypedKey := func(key *fyne.KeyEvent) {
 		if key.Name == fyne.KeyEnter || key.Name == fyne.KeyReturn {
-			ptyCommunicator.Write([]byte{'\r'})
+			_, _ = ptyCommunicator.Write([]byte{'\r'})
 		}
 	}
 
 	onTypedRune := func(rune rune) {
-		ptyCommunicator.WriteString(string(rune))
+		_, _ = ptyCommunicator.WriteString(string(rune))
 	}
 
 	window.Canvas().SetOnTypedKey(onTypedKey)
