@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 	"small_projects_in_go/commandLine"
-	"small_projects_in_go/euromillions"
+	"small_projects_in_go/smalliterm"
 )
 
 func main() {
@@ -16,7 +16,8 @@ func main() {
 		/*if runtime.GOOS == "linux" {
 			docker.Main_Linux()
 		}*/
-	case "euro":
-		euromillions.MainNumbersPicker()
+	//case "euro": euromillions.MainNumbersPicker()
+	case "iterm":
+		smalliterm.Main_Iterm()
 	}
 }
